@@ -24,9 +24,8 @@ describe('Teste a função fetchProductsList', () => {
   
   });
 
-  it('Verifica se ao chamar a função fetchProductsList sem argumento, retorna um erro com a mensagem: Termo de busca não informado', async () => { 
-    const result = await fetchProductsList();
-    expect(result).toEqual('Termo de busca não informado');
+  it('Verifica se ao chamar a função fetchProductsList sem argumento, retorna um erro com a mensagem: Termo de busca não informado', () => { 
+    expect(fetchProductsList()).rejects.toThrow('Termo de busca não informado');
   });
 
 });
