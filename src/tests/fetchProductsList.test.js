@@ -21,7 +21,6 @@ describe('Teste a função fetchProductsList', () => {
   it('Verifica se função fetchProductsList com o argumento computador é uma estrutura de dados igual ao objeto computadorSearch, que já está importado no arquivo.', async () => {
   const result = await fetchProductsList('computador');
   expect(result).toEqual(computadorSearch);
-  
   });
 
   it('Verifica se ao chamar a função fetchProductsList sem argumento, retorna um erro com a mensagem: Termo de busca não informado', () => { 
@@ -29,3 +28,4 @@ describe('Teste a função fetchProductsList', () => {
   });
 
 });
+
