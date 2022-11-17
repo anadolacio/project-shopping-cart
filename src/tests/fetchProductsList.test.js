@@ -27,5 +27,10 @@ describe('Teste a função fetchProductsList', () => {
     expect(fetchProductsList()).rejects.toThrow('Termo de busca não informado');
   });
 
+  it('Verifica se ao chamar a função fetchProductsList com argumento errado, retorna um erro com a mensagem.', async () => { 
+    const result = await fetchProductsList('X');
+    expect(result).toBe('URL não mapeadahttps://api.mercadolibre.com/sites/MLB/search?q=X');
+  });
+
 });
 

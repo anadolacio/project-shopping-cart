@@ -23,8 +23,13 @@ describe('Teste a função fetchProduct', () => {
   expect(result).toEqual(product);
   });
 
-  it('Verifica se ao chamar a função fetchProductsList sem argumento, retorna um erro com a mensagem: Termo de busca não informado', () => { 
+  it('Verifica se ao chamar a função fetchProductsList sem argumento, retorna um erro com a mensagem: ID não informado', () => { 
     expect(fetchProduct()).rejects.toThrow('ID não informado');
+  });
+
+  it('Verifica se ao chamar a função fetchProductsList com argumento errado, retorna um erro com a mensagem.', async () => { 
+    const result = await fetchProduct('MLB140551956X');
+    expect(result).toBe('URL não mapeadahttps://api.mercadolibre.com/items/MLB140551956X');
   });
 
 });
