@@ -1,13 +1,14 @@
 import { searchCep } from './helpers/cepFunctions';
 import { createProductElement } from './helpers/shopFunctions';
 import { fetchProductsList } from './helpers/fetchFunctions';
+// import { saveCartID } from './helpers/cartFunctions';
 import './style.css';
 
 // Search html
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 const sectionListProducts = document.querySelector('.products');
 
-// Functions
+// Add products on site
 const loadingAlert = () => {
   const message = document.createElement('p');
   message.classList.add('loading');
@@ -38,3 +39,9 @@ const createProductList = async () => {
 };
 
 createProductList();
+
+// Add products on cart
+
+// const addToCart = () => {
+//   saveCartID(id);
+// }
