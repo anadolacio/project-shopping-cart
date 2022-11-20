@@ -1,12 +1,14 @@
 import { searchCep } from './helpers/cepFunctions';
-import { createProductElement } from './helpers/shopFunctions';
-import { fetchProductsList } from './helpers/fetchFunctions';
-// import { saveCartID } from './helpers/cartFunctions';
+import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
+import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
+import { saveCartID, getSavedCartIDs } from './helpers/cartFunctions';
 import './style.css';
 
 // Search html
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 const sectionListProducts = document.querySelector('.products');
+const cart = document.querySelector('.cart__products');
+// const totalValue = document.querySelector('.total-price');
 
 // Add products on site
 const loadingAlert = () => {
@@ -40,8 +42,22 @@ const createProductList = async () => {
 
 createProductList();
 
-// Add products on cart
+// Add to cart
+function showProductsInsideCart() {
+  const productsSaved = getSavedCartIDs();
+  return productsSaved.forEach(async (product) => {
+    const findProduct = await fetchProduct(product);
+    const productFound = createCartProductElement(findProduct);
+    cart.appendChild(productFound);
+  });
+}
 
-// const addToCart = () => {
-//   saveCartID(id);
-// }
+function addInsideCart(event) {
+  if (event.target.parentNode.className === 'product') {
+    const getID = event.target.parentNode.firstChild.innerHTML;
+    saveCartID(getID);
+    showProductsInsideCart();
+  }
+}
+
+sectionListProducts.addEventListener('click', addInsideCart);
