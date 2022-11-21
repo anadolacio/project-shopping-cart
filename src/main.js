@@ -8,7 +8,7 @@ import './style.css';
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 const sectionListProducts = document.querySelector('.products');
 const cart = document.querySelector('.cart__products');
-// const totalValue = document.querySelector('.total-price');
+const total = document.querySelector('.total-price');
 
 // Add products on site
 const loadingAlert = () => {
@@ -43,12 +43,16 @@ const createProductList = async () => {
 createProductList();
 
 // Add to cart
+
 function showProductsInsideCart() {
   const productsSaved = getSavedCartIDs();
-  return productsSaved.forEach(async (product) => {
+  let finalPrice = 0;
+  productsSaved.forEach(async (product) => {
     const findProduct = await fetchProduct(product);
     const productFound = createCartProductElement(findProduct);
     cart.appendChild(productFound);
+    finalPrice += findProduct.price;
+    total.textContent = finalPrice.toFixed(2);
   });
 }
 
@@ -56,8 +60,13 @@ function addInsideCart(event) {
   if (event.target.parentNode.className === 'product') {
     const getID = event.target.parentNode.firstChild.innerHTML;
     saveCartID(getID);
+    cart.innerHTML = '';
     showProductsInsideCart();
   }
 }
 
 sectionListProducts.addEventListener('click', addInsideCart);
+
+window.onload = () => {
+  showProductsInsideCart();
+};
