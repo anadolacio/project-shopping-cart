@@ -45,8 +45,11 @@ export const getIdFromProduct = (product) => (
  * @param {Element} li - Elemento do produto a ser removido do carrinho.
  * @param {string} id - ID do produto a ser removido do carrinho.
  */
-const removeCartProduct = (li, id) => {
+const removeCartProduct = (li, id, price) => {
+  const total = document.querySelector('.total-price');
+  const updatePrice = Number(total.innerText) - price;
   li.remove();
+  total.innerText = updatePrice;
   removeCartID(id);
 };
 
@@ -87,7 +90,7 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
   );
   li.appendChild(removeButton);
 
-  li.addEventListener('click', () => removeCartProduct(li, id));
+  li.addEventListener('click', () => removeCartProduct(li, id, price));
   return li;
 };
 
